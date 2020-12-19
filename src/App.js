@@ -3,12 +3,13 @@ import {Link, Route} from "react-router-dom"
 import PizzaForm from "./PizzaForm.js"
 import schema from "./validation/formSchema";
 import * as yup from "yup";
+import axios from "axios"
 
 //////////////// INITIAL STATES ////////////////
 const initialFormValues = {
   customerName: '', //text
   pizzaSize: '', //dropdown
-  toppings: '',  // checkbox (note to self: refer to hobbies example)
+  toppings: [],  // checkbox (note to self: refer to hobbies example)
   specialInstructions: '' // text input
 }
 
@@ -66,6 +67,19 @@ const App = () => {
   const [disabled, setDisabled] =useState(initialDisabled)
   const [orders, setOrders] = useState(initialOrders)
 
+  const postNewOrder = (newOrder) => {
+    axios
+      .post('https://reqres.in/api/users', newOrder)
+      .then((res) => {
+        setOrders([res.data, ...orders]);
+        setFormValues(initialFormValues);
+        console.log({orders})
+      })
+      .catch((err) => {
+        console.log(err);
+        debugger
+      })
+  }
 
   const submitNewOrder = () => {
     let newOrder = {    
@@ -77,7 +91,7 @@ const App = () => {
     }
 
     setFormValues(initialFormValues)
-    setOrders({...orders, newOrder})
+    postNewOrder(newOrder)
   
   }
   
@@ -98,7 +112,6 @@ const App = () => {
         [nm]: err.errors[0],
       });
     })
-
     setFormValues({
       ...formValues,
       [nm]: val
@@ -116,14 +129,16 @@ const App = () => {
     <>
       <Route path="/" component={NavBar} />
       <Route exact path="/" component={Home}/>
-      <Route path="/pizza" component={(props) => <PizzaForm values={formValues} setFormValues={setFormValues}
-      disabled={disabled}
-      setDisabled={setDisabled}
-      orders={orders}
-      setOrders={setOrders}
-      errors={errors}
-      submit={submitNewOrder}
-      change={change}/>}/>
+      <Route path="/pizza">
+        <PizzaForm values={formValues} setFormValues={setFormValues}
+        disabled={disabled}
+        setDisabled={setDisabled}
+        orders={orders}
+        setOrders={setOrders}
+        errors={errors}
+        submit={submitNewOrder}
+        change={change}/>
+      </Route> 
      
     </>
   );

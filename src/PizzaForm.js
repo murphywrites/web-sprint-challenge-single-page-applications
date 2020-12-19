@@ -58,7 +58,7 @@ const onChange = (evt) => {
                     type="checkbox"
                     name="pepperoni"
                     // let the checkbox be checked if the value inside state resolves to true!
-                    checked={values.pepperoni}
+                    checked={values.toppings.pepperoni}
                     onChange={onChange}
                 />
         </label>
@@ -68,7 +68,7 @@ const onChange = (evt) => {
                     type="checkbox"
                     name="sausage"
                     // let the checkbox be checked if the value inside state resolves to true!
-                    checked={values.sausage}
+                    checked={values.toppings.sausage}
                     onChange={onChange}
                 />
         </label>
@@ -78,7 +78,7 @@ const onChange = (evt) => {
                     type="checkbox"
                     name="onions"
                     // let the checkbox be checked if the value inside state resolves to true!
-                    checked={values.onions}
+                    checked={values.toppings.onions}
                     onChange={onChange}
                 />
         </label>
@@ -88,7 +88,7 @@ const onChange = (evt) => {
                     type="checkbox"
                     name="mushrooms"
                     // let the checkbox be checked if the value inside state resolves to true!
-                    checked={values.mushrooms}
+                    checked={values.toppings.mushrooms}
                     onChange={onChange}
                 />
         </label>

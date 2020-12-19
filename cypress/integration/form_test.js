@@ -17,18 +17,19 @@ describe("Pizza form app", () => {
     });
     it("Input test", () => {
         cy.get('[href="/pizza"]').click()  
-      cy.get('input[name="customerName"]').type("M").should("have.value", "M");
+      cy.get('input[name="customerName"]').type("Mike").should("have.value", "Mike");
     });
 
     it("Multiple toppings", () => {
         cy.get('[href="/pizza"]').click()
-        cy.get('input[name="pepperoni"]').click().should("have.value", "true");
-        cy.get('input[name="sausage"]').click().should("have.value", "true");
+        cy.get('input[name="pepperoni"]').click().should("have.checked", "true");
+        cy.get('input[name="sausage"]').click().should("have.checked", "true");
       });
 
       it("submit", () => {
         cy.get('[href="/pizza"]').click()
-        cy.get('input[name="customerName"]').type("M").click().type('m')  
+        cy.get('input[name="customerName"]').type("Erin")
+        cy.get('select').select('L')
         cy.get('button').click()
       });
 
